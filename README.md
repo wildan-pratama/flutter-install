@@ -4,7 +4,7 @@ _This script will install android sdk and flutter sdk on /home/Android/_
 # Flutter installer
 
 1. Download CommandLineTools from here https://developer.android.com/studio#command-tools
-2. run create-path.sh
+2. run create-path.sh and exit/close terminal after that
 ```
 ./create-path.sh
 ```
