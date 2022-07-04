@@ -1,3 +1,6 @@
+## Requirements
+_This script will install android sdk and flutter sdk on /home/Android/_
+
 # Flutter installer
 
 1. Download CommandLineTools from here https://developer.android.com/studio#command-tools
