@@ -21,5 +21,5 @@ _Zsh Shell_
 ```
 4. Run the installer according to the system you are using
 ```
-./flutter-arch.sh or ./debia-arch.sh
+./flutter-arch.sh or ./flutter-debia.sh
 ```
