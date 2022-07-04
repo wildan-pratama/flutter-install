@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo pacman -Syy git clang cmake ninja jre11-openjdk jdk11-openjdk gtk3
+sudo pacman -Syy git clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 --noconfirm 
 
 git clone https://github.com/flutter/flutter.git /home/Android/flutter
 sdkmanager "platform-tools"
