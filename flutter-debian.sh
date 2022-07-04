@@ -1,6 +1,6 @@
 #!/bin/sh
 sudo apt-get update
-sudo apt-get install git clang cmake ninja-buil openjdk-11-jdk openjdk-11-jre
+sudo apt-get install git clang cmake ninja-build openjdk-11-jdk openjdk-11-jre
 
 git clone https://github.com/flutter/flutter.git /home/Android/flutter
 sdkmanager "platform-tools"
