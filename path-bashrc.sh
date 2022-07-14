@@ -12,4 +12,4 @@ echo 'export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"' >> ~/.bashrc
 
 echo '# Flutter binary exporting' >> ~/.bashrc
 echo 'export PATH="$PATH:$ANDROID_HOME/flutter/bin"' >> ~/.bashrc
-exit
+source ~/.bashrc
