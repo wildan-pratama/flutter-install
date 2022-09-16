@@ -1,4 +1,4 @@
-## Requirements
+## Notes
 _This script will install android sdk and flutter sdk on /home/Android/_
 
 # Flutter installer
@@ -22,7 +22,7 @@ _Zsh Shell_
 ```
 ./path-zshrc.sh
 ```
-4. Run the installer according to the system you are using
+5. Run the installer according to the system you are using
 ```
 ./flutter-arch.sh
 ```
