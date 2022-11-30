@@ -12,4 +12,3 @@ echo 'export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"' >> ~/.zshrc
 
 echo '# Flutter binary exporting' >> ~/.zshrc
 echo 'export PATH="$PATH:$ANDROID_HOME/flutter/bin"' >> ~/.zshrc
-source ~/.zshrc
