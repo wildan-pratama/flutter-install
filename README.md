@@ -1,5 +1,5 @@
 ## Notes
-_This script will install android sdk and flutter sdk on /home/Android/_
+_This script will install android sdk and flutter sdk on ~/Android/_
 
 # Flutter installer
 
