@@ -4,7 +4,7 @@ source .flutterrc
 
 # Arch Package
 arch_pkg () {
-    sudo pacman -U ./*.tar.zst --noconfirm 
+    sudo pacman -U ./*.tar.gz --noconfirm 
     yay -Syy sdkmanager git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools
 }
 
