@@ -19,7 +19,7 @@ makepkg -si
 
 ## To Install
 
-1. Clone this repositori and run install.sh
+1. Clone this repository and run install.sh
 
 ```
 git clone https://github.com/wildan-pratama/flutter-install.git
