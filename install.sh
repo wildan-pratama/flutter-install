@@ -30,7 +30,7 @@ flutter_install () {
     elif [[ "$os" == 'arch' ]]; then
 	    yay -Rs sdkmanager --noconfirm 
     else
-        echo ""
+        exit
     fi
     sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
     sdkmanager --licenses
