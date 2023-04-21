@@ -33,3 +33,6 @@ cd flutter-install
 ```
 
 2. Follow step installation on script
+
+![image](https://user-images.githubusercontent.com/84622086/233557218-89b775bf-59c6-4f1f-9006-33fe9cf6dc0c.png)
+
