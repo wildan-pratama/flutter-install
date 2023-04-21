@@ -3,31 +3,29 @@ _This script will install android sdk and flutter sdk on /home/Android/_
 
 # Flutter installer
 
-1. Download CommandLineTools from here https://developer.android.com/studio#command-tools
-2. run create-path.sh
-```
-./create-path.sh
-```
-3. Extract CommandLineTools to /home/Android/sdk/cmdline-tools/latest/
-![Screenshot_2022-07-04-13-20-14_1366x768](https://user-images.githubusercontent.com/84622086/177096244-2d09689f-0c54-45e7-b335-ac767f0670b4.png)
+## Requirements
+If you are no arch linux based need install yay first
 
-4. Export path according to the shell you are using  and exit/close terminal after that
+### Yay
 
-_Bash Shell_
-```
-./path-bashrc.sh
-```
+Run as user NOT ROOT!
 
-_Zsh Shell_
 ```
-./path-zshrc.sh
-```
-5. Run the installer according to the system you are using
-```
-./flutter-arch.sh
+# Before this you need base-devel installed
+git clone https://aur.archlinux.org/yay-bin
+cd yay-bin
+makepkg -si
 ```
 
-or
+## To Install
+
+1. clone this repositori and run install.sh
+
 ```
-./flutter-debian.sh
+    git clone https://github.com/wildan-pratama/flutter-install.git
+    cd flutter-install
+
+    ./install.sh
 ```
+
+2. Follow step installation on script

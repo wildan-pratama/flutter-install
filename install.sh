@@ -4,7 +4,7 @@ source .flutterrc
 
 # Arch Package
 arch_pkg () {
-    sudo yay -Syy sdkmanager git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools --noconfirm 
+    yay -Syy sdkmanager git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools
 }
 
 # Debian Package
@@ -15,8 +15,24 @@ deb_pkg () {
 
 # Flutter install
 flutter_install () {
-    git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
-    sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33" "cmdline-tools;latest"
+    
+    if [ -d "$ANDROID_HOME"/flutter ]; then
+        rm -rf $ANDROID_HOME/flutter
+        git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
+    else
+        git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
+    fi
+    
+    sdkmanager "cmdline-tools;latest"
+    
+    if [[ "$os" == 'deb' ]]; then
+	    sudo apt remove --purge sdkmanager -y
+    elif [[ "$os" == 'arch' ]]; then
+	    yay -Rs sdkmanager --noconfirm 
+    else
+        echo ""
+    fi
+    sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
     sdkmanager --licenses
     flutter doctor --android-licenses
     flutter doctor -v
@@ -24,45 +40,44 @@ flutter_install () {
 
 # Export path
 ex_path () {
+
+    flutter_paths () {
+    # export bash/zsh
+        flutter_path="source \$HOME/Android/.flutterrc"
+    
+        if [ ! -f "$HOME"/.bashrc ]; then
+            touch "$HOME"/.bashrc
+            echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.bashrc
+        elif grep -q "$flutter_path" "$HOME"/.bashrc; then
+            echo ""
+        else
+            echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.bashrc
+        fi
+    
+        if [ ! -f "$HOME"/.zshrc ]; then
+            touch "$HOME"/.zshrc
+            echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc
+        elif grep -q "$flutter_path" "$HOME"/.zshrc; then
+            echo ""
+        else
+            echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc
+        fi
+    }
+    
     # create dir
-    if [ -d "$ANDROID_SDK_ROOT" ]; then
-        echo "Directory $ANDROID_SDK_ROOT exists. Skip create dir"
-    else
+    if [ ! -d "$ANDROID_SDK_ROOT" ]; then
         echo "Directory $ANDROID_SDK_ROOT does not exist. Creating it now."
         mkdir -p $ANDROID_SDK_ROOT
-    fi
-    
-    # copy .flutterrc
-    if [ ! -f "$ANDROID_HOME"/.flutterrc ]; then
+    elif [ ! -f "$ANDROID_HOME"/.flutterrc ]; then
         cp .flutterrc $ANDROID_HOME/
+        flutter_paths
     elif cmp -s .flutterrc "$ANDROID_HOME"/.flutterrc; then
-        exit
+        flutter_paths
     else
-        rm -rf "$ANDROID_HOME"/.flutterrc
-        cp .flutterrc $ANDROID_HOME/
+         rm -rf "$ANDROID_HOME"/.flutterrc
+         cp .flutterrc $ANDROID_HOME/
+         flutter_paths
     fi
-
-    # export bash/zsh
-    flutter_path="source $HOME/Android/.flutterrc"
-    
-    if [ ! -f "$HOME"/.bashrc ]; then
-        touch "$HOME"/.bashrc
-        echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.bashrc
-    elif grep -q "$flutter_path" "$HOME"/.bashrc; then
-        exit
-    else
-        echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.bashrc
-    fi
-    
-    if [ ! -f "$HOME"/.zshrc ]; then
-        touch "$HOME"/.zshrc
-        echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc
-    elif grep -q "$flutter_path" "$HOME"/.zshrc; then
-        exit
-    else
-        echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc
-    fi
-
 }
 
 # Select OS and install Package
@@ -81,10 +96,12 @@ install_pkg () {
     1)
         echo "Installing Package for Arch"
         arch_pkg
+        os="arch"
         ;;
     2)
         echo "Installing Package for Debian"
         deb_pkg
+        os="deb"
         ;;
     *)
         echo "Error"
@@ -96,7 +113,7 @@ install () {
     # Confirm
     echo "This script will install package required by Flutter and will download required sdk to $ANDROID_HOME"
     echo "and only support bash/zsh shell"
-    echo "You are using '$0' shell"
+    echo "You are using '$SHELL' shell"
     
     echo "1. Continue."
     echo "2. Abbort."
@@ -111,7 +128,7 @@ install () {
         ex_path
         install_pkg
         flutter_install
-        echo "if you want export manualy path you can run command"
+        echo "if you want export manualy path you can run command:"
         echo "echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc (for zsh shell)"
         echo "echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.bashrc (for bash shell)"
         
