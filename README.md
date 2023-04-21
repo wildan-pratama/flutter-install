@@ -22,10 +22,10 @@ makepkg -si
 1. clone this repositori and run install.sh
 
 ```
-    git clone https://github.com/wildan-pratama/flutter-install.git
-    cd flutter-install
+git clone https://github.com/wildan-pratama/flutter-install.git
+cd flutter-install
 
-    ./install.sh
+./install.sh
 ```
 
 2. Follow step installation on script
