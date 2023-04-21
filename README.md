@@ -4,7 +4,13 @@ _This script will install android sdk and flutter sdk on ~/Android/_
 # Flutter installer
 
 ## Requirements
-If you are on arch linux based need install yay first
+Arch linux based OS like Archcraft, Endeavouros or Manjaro.
+
+Debian 11 based OS or Ubuntu 22.04 LTS based OS.
+
+bash or zsh shell.
+
+If you are on arch linux based need install yay first.
 
 ### Yay
 
@@ -29,3 +35,6 @@ cd flutter-install
 ```
 
 2. Follow step installation on script
+
+![image](https://user-images.githubusercontent.com/84622086/233557218-89b775bf-59c6-4f1f-9006-33fe9cf6dc0c.png)
+
