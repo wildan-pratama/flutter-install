@@ -10,19 +10,6 @@ Debian 11 based OS or Ubuntu 22.04 LTS based OS.
 
 bash or zsh shell.
 
-If you are on arch linux based need install yay first.
-
-### Yay
-
-Run as user NOT ROOT!
-
-```
-# Before this you need base-devel installed
-git clone https://aur.archlinux.org/yay-bin
-cd yay-bin
-makepkg -si
-```
-
 ## To Install
 
 1. Clone this repository and run install.sh
