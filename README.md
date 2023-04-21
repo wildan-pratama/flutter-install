@@ -8,6 +8,8 @@ Arch linux based OS like Archcraft, Endeavouros or Manjaro.
 
 Debian 11 based OS or Ubuntu 22.04 LTS based OS.
 
+bash or zsh shell.
+
 If you are on arch linux based need install yay first.
 
 ### Yay
