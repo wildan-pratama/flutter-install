@@ -4,7 +4,7 @@ _This script will install android sdk and flutter sdk on ~/Android/_
 # Flutter installer
 
 ## Requirements
-If you are no arch linux based need install yay first
+If you are on arch linux based need install yay first
 
 ### Yay
 
@@ -19,7 +19,7 @@ makepkg -si
 
 ## To Install
 
-1. clone this repositori and run install.sh
+1. Clone this repositori and run install.sh
 
 ```
 git clone https://github.com/wildan-pratama/flutter-install.git
