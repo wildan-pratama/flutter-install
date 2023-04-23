@@ -2,16 +2,26 @@
 
 source .flutterrc
 
-# Arch Package
-arch_pkg () {
-    sudo pacman -U ./*.tar.gz --noconfirm 
-    yay -Syy sdkmanager git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools
-}
+sdkmanager_path="$ANDROID_HOME/sdk/cmdline-tools/latest/bin/sdkmanager"
 
-# Debian Package
-deb_pkg () {
-    sudo apt-get update
-    sudo apt-get install sdkmanager git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb -y
+if [ ! -f "$sdkmanager_path" ]; then
+    sdkmanager="sdkmanager"
+else
+    sdkmanager=""
+fi
+
+
+# Required Package
+pkg_install () {
+    if [[ "$os" == 'deb' ]]; then
+	    sudo apt-get update
+        sudo apt-get install $sdkmanager git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb -y
+    elif [[ "$os" == 'arch' ]]; then
+	    sudo pacman -U ./*.tar.gz --noconfirm 
+        yay -Syy $sdkmanager git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools
+    else
+        exit
+    fi
 }
 
 # Flutter install
@@ -23,16 +33,19 @@ flutter_install () {
     else
         git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
     fi
-    
-    sdkmanager "cmdline-tools;latest"
-    
-    if [[ "$os" == 'deb' ]]; then
-	    sudo apt remove --purge sdkmanager -y
-    elif [[ "$os" == 'arch' ]]; then
-	    yay -Rs sdkmanager --noconfirm 
+
+    if [ -f "$sdkmanager_path" ]; then
+        if [[ "$os" == 'deb' ]]; then
+	        sudo apt remove --purge sdkmanager -y
+        elif [[ "$os" == 'arch' ]]; then
+	        yay -Rs sdkmanager --noconfirm 
+        else
+            exit
+        fi
     else
-        exit
+        sdkmanager "cmdline-tools;latest"
     fi
+
     sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
     sdkmanager --licenses
     flutter doctor --android-licenses
@@ -82,7 +95,7 @@ ex_path () {
 }
 
 # Select OS and install Package
-install_pkg () {
+sel_os () {
     # Select OS
     echo "Please chose your os:"
     echo "1. Arch base like Artix, Manjaro, Garuda Linux, etc."
@@ -96,12 +109,10 @@ install_pkg () {
     case $OS in
     1)
         echo "Installing Package for Arch"
-        arch_pkg
         os="arch"
         ;;
     2)
         echo "Installing Package for Debian"
-        deb_pkg
         os="deb"
         ;;
     *)
@@ -127,7 +138,8 @@ install () {
     case $confirm in
     1)
         ex_path
-        install_pkg
+        sel_os
+        pkg_install
         flutter_install
         echo "if you want export manualy path you can run command:"
         echo "echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc (for zsh shell)"
