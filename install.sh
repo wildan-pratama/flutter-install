@@ -40,12 +40,7 @@ pkg_install () {
 # Flutter install
 flutter_install () {
     
-    if [ -d "$ANDROID_HOME"/flutter ]; then
-        rm -rf $ANDROID_HOME/flutter
-        git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
-    else
-        git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
-    fi
+    git clone https://github.com/flutter/flutter.git -b stable $ANDROID_HOME/flutter
 
     if [ -f "$sdkmanager_path" ]; then
         if [[ "$os" == 'deb' ]]; then
