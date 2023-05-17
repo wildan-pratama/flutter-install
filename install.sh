@@ -28,7 +28,7 @@ yay-cek () {
 }
 pkg_install () {
     if [[ "$os" == 'deb' ]]; then
-	    sudo apt-get update
+	sudo apt-get update
         sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb $sdkmanager -y
     elif [[ "$os" == 'arch' ]]; then
         yay_cek
@@ -41,17 +41,22 @@ pkg_install () {
 flutter_install () {
     
     git clone https://github.com/flutter/flutter.git -b stable $ANDROID_HOME/flutter
-
-    if [ -f "$sdkmanager_path" ]; then
-        if [[ "$os" == 'deb' ]]; then
+    
+    uninstall_sdkmanager () {
+    	if [[ "$os" == 'deb' ]]; then
 	        sudo apt remove --purge sdkmanager -y
         elif [[ "$os" == 'arch' ]]; then
 	        yay -Rs sdkmanager --noconfirm 
         else
             exit
         fi
+    }
+
+    if [ -f "$sdkmanager_path" ]; then
+	uninstall_sdkmanager
     else
         sdkmanager "cmdline-tools;latest"
+	uninstall_sdkmanager
     fi
 
     sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
