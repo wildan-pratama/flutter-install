@@ -16,20 +16,20 @@ fi
 yay-cek () {
     if command -v yay &> /dev/null
     then
-        yay -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools $sdkmanager
+        yay -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which $sdkmanager
     else
         sudo pacman -S base-devel
         git clone https://aur.archlinux.org/yay-bin
         cd yay-bin
         makepkg -si
         cd ..
-        yay -Syy git clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools $sdkmanager
+        yay -Syy git clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which $sdkmanager
     fi
 }
 pkg_install () {
     if [[ "$os" == 'deb' ]]; then
 	sudo apt-get update
-        sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb $sdkmanager -y
+        sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb which $sdkmanager -y
     elif [[ "$os" == 'arch' ]]; then
         yay_cek
     else
