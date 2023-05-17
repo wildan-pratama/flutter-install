@@ -68,7 +68,7 @@ export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
 
 ## Flutter binary exporting
 export PATH="$PATH:$ANDROID_HOME/flutter/bin"
-export CHROME_EXECUTABLE=$(which brave-browser) #debian
-export CHROME_EXECUTABLE=$(which brave) #arch
-export CHROME_EXECUTABLE=$(which chrome)
-export CHROME_EXECUTABLE=$(which chromium)
+
+## Browser exporting for web dev (only support browser base chrome/chromium who installled from repo/not sanpd/flatpak)
+export browser_flutter="brave"
+export CHROME_EXECUTABLE=$(which $browser_flutter)
