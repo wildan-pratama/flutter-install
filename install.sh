@@ -91,11 +91,11 @@ sel_os () {
     # Proccesing input
     case $OS in
     1)
-        echo "Installing Package for Arch"
+        echo "Setup path, directory and installing Package for Arch"
         os="arch"
         ;;
     2)
-        echo "Installing Package for Debian"
+        echo "Setup path, directory and installing Package for Debian"
         os="deb"
         ;;
     *)
