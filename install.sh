@@ -59,6 +59,7 @@ ex_path () {
         else
             exit
         fi
+    }
     
     # create dir
     if [ ! -d "$ANDROID_SDK_ROOT" ]; then
