@@ -15,8 +15,8 @@ dialog-install () {
     # Proccesing input
     case $confirm in
     1)
-        ex_path
         sel_os
+        ex_path
         pkg_install
         flutter_install
         ;;
