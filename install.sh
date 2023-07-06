@@ -154,7 +154,7 @@ flutter_install () {
 
     source $HOME/Android/.flutterrc
 
-    sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
+    sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33"
     sdkmanager --licenses
     flutter doctor --android-licenses
     flutter doctor -v
