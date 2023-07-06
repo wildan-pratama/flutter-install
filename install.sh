@@ -146,7 +146,6 @@ flutter_install () {
         sdkmanager "cmdline-tools;latest"
 	    uninstall_sdkmanager
     fi
-    updatedb
 
     sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
     sdkmanager --licenses
