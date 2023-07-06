@@ -145,7 +145,11 @@ flutter_install () {
     else
         sdkmanager "cmdline-tools;latest"
 	uninstall_sdkmanager
- 	ln -sf $ANDROID_HOME/cmdline-tools $ANDROID_SDK_ROOT/
+    fi
+    if [ -d $ANDROID_HOME/cmdline-tools ]; then
+        ln -sf $ANDROID_HOME/cmdline-tools $ANDROID_SDK_ROOT/
+    else
+        echo
     fi
 
     source .flutterrc
