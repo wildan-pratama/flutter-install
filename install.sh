@@ -152,7 +152,7 @@ flutter_install () {
         echo
     fi
 
-    source .flutterrc
+    source $HOME/Android/.flutterrc
 
     sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
     sdkmanager --licenses
