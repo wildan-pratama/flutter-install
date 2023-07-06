@@ -141,10 +141,11 @@ flutter_install () {
     }
 
     if [ -f "$sdkmanager_path" ]; then
-	    uninstall_sdkmanager
+	uninstall_sdkmanager
     else
         sdkmanager "cmdline-tools;latest"
-	    uninstall_sdkmanager
+	uninstall_sdkmanager
+ 	ln -sf $ANDROID_HOME/cmdline-tools $ANDROID_SDK_ROOT/
     fi
 
     sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
