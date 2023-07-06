@@ -148,6 +148,8 @@ flutter_install () {
  	ln -sf $ANDROID_HOME/cmdline-tools $ANDROID_SDK_ROOT/
     fi
 
+    source .flutterrc
+
     sdkmanager "platform-tools" "build-tools;33.0.0-rc4" "platforms;android-33"
     sdkmanager --licenses
     flutter doctor --android-licenses
