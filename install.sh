@@ -62,9 +62,9 @@ ex_path () {
     }
     
     # create dir
-    if [ ! -d "$ANDROID_SDK_ROOT" ]; then
-        echo "Directory $ANDROID_SDK_ROOT does not exist. Creating it now."
-        mkdir -p $ANDROID_SDK_ROOT
+    if [ ! -d "$ANDROID_HOME" ]; then
+        echo "Directory $ANDROID_HOME does not exist. Creating it now."
+        mkdir -p $ANDROID_HOME
     elif [ ! -f "$ANDROID_HOME"/.flutterrc ]; then
         cp .flutterrc $ANDROID_HOME/
         flutter-path
