@@ -65,6 +65,7 @@ ex_path () {
     if [ ! -d "$ANDROID_HOME" ]; then
         echo "Directory $ANDROID_HOME does not exist. Creating it now."
         mkdir -p $ANDROID_HOME
+        cp .flutterrc $ANDROID_HOME/
     elif [ ! -f "$ANDROID_HOME"/.flutterrc ]; then
         cp .flutterrc $ANDROID_HOME/
         flutter-path
@@ -128,7 +129,7 @@ pkg_install () {
 # Flutter install
 flutter_install () {
     
-    git clone https://github.com/flutter/flutter.git -b stable $ANDROID_HOME/flutter
+    git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
     
     uninstall_sdkmanager () {
     	if [[ "$os" == 'deb' ]]; then
