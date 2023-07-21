@@ -105,7 +105,7 @@ sel_os () {
 # Required Package
 pkg_install () {
 
-    sdkmanager_path="$ANDROID_HOME/sdk/cmdline-tools/latest/bin/sdkmanager"
+    sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
 
     if [ ! -f "$sdkmanager_path" ]; then
         sdkmanager="sdkmanager"
@@ -138,17 +138,11 @@ flutter_install () {
         fi
     }
 
-    if [ -f "$sdkmanager_path" ]; then
-	uninstall_sdkmanager
-    else
-        sdkmanager "cmdline-tools;latest"
-	uninstall_sdkmanager
+    if ! [[ -f "$sdkmanager_path" ]]; then
+    # Install sdkmanager
+    sdkmanager "cmdline-tools;latest"
     fi
-    #if [ -d $ANDROID_HOME/cmdline-tools ]; then
-    #    ln -sf $ANDROID_HOME/cmdline-tools $ANDROID_SDK_ROOT/
-    #else
-    #    echo
-    #fi
+    uninstall_sdkmanager
 
     source $HOME/Android/.flutterrc
 
