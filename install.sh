@@ -33,10 +33,8 @@ dialog-install () {
 # Export path
 ex_path () {
 
-    flutter-path () {
-
-        current_shell=$(basename "$SHELL")
-        flutter_path="source \$HOME/Android/.flutterrc"
+    current_shell=$(basename "$SHELL")
+    flutter_path="source \$HOME/Android/.flutterrc"
 
         if [[ "$current_shell" == 'zsh' ]]; then
 	        if [ ! -f "$HOME"/.zshrc ]; then
@@ -59,7 +57,6 @@ ex_path () {
         else
             exit
         fi
-    }
     
     # create dir
     if [ ! -d "$ANDROID_HOME" ]; then
