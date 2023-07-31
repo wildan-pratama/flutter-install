@@ -35,7 +35,7 @@ ex_path () {
 
     current_shell=$(basename "$SHELL")
     flutter_path="source \$HOME/Android/.flutterrc"
-
+	flutter-path () {
         if [[ "$current_shell" == 'zsh' ]]; then
 	        if [ ! -f "$HOME"/.zshrc ]; then
                 touch "$HOME"/.zshrc
@@ -57,6 +57,7 @@ ex_path () {
         else
             exit
         fi
+	}
     
     # create dir
     if [ ! -d "$ANDROID_HOME" ]; then
@@ -69,9 +70,9 @@ ex_path () {
     elif cmp -s .flutterrc "$ANDROID_HOME"/.flutterrc; then
         flutter-path
     else
-         rm -rf "$ANDROID_HOME"/.flutterrc
-         cp .flutterrc $ANDROID_HOME/
-         flutter-path
+        rm -rf "$ANDROID_HOME"/.flutterrc
+        cp .flutterrc $ANDROID_HOME/
+        flutter-path
     fi
 }
 
@@ -105,51 +106,37 @@ sel_os () {
 # Required Package
 pkg_install () {
 
-    sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
-
-    if [ ! -f "$sdkmanager_path" ]; then
-        sdkmanager="sdkmanager"
-    else
-        sdkmanager=""
-    fi
-
-    if [[ "$os" == 'deb' ]]; then
-	    sudo apt-get update
-        sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb which $sdkmanager -y
-    elif [[ "$os" == 'arch' ]]; then
-        sudo pacman -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which $sdkmanager
-    else
-        exit
-    fi
+    
+	
+	if [[ "$os" == 'deb' ]]; then
+		sudo apt-get update
+		sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb which -y
+	elif [[ "$os" == 'arch' ]]; then
+		sudo pacman -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which
+	else
+		exit
+	fi
+    
 }
 
 # Flutter install
 flutter_install () {
     
     git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
+    sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
     
-    uninstall_sdkmanager () {
-    	if [[ "$os" == 'deb' ]]; then
-	        sudo apt remove --purge sdkmanager -y
-        elif [[ "$os" == 'arch' ]]; then
-	        sudo pacman -Rs sdkmanager --noconfirm 
-        else
-            exit
-        fi
-    }
-
     if ! [[ -f "$sdkmanager_path" ]]; then
-    # Install sdkmanager
-    sdkmanager "cmdline-tools;latest"
+        ./sdkmanager.sh
     fi
-    uninstall_sdkmanager
+		
+	sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33"
+    sdkmanager --licenses
+	flutter doctor --android-licenses
+	flutter doctor -v
 
     source $HOME/Android/.flutterrc
 
-    sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33"
-    sdkmanager --licenses
-    flutter doctor --android-licenses
-    flutter doctor -v
+    
 }
 
 
