@@ -37,7 +37,7 @@ ex_path () {
     flutter_path="source \$HOME/Android/.flutterrc"
 	flutter-path () {
         if [[ "$current_shell" == 'zsh' ]]; then
-	        if [ ! -f "$HOME"/.zshrc ]; then
+	        if ! [ -f "$HOME"/.zshrc ]; then
                 touch "$HOME"/.zshrc
                 echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc
             elif grep -q "$flutter_path" "$HOME"/.zshrc; then
@@ -46,7 +46,7 @@ ex_path () {
                 echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.zshrc
             fi
         elif [[ "$current_shell" == 'bash' ]]; then
-	        if [ ! -f "$HOME"/.bashrc ]; then
+	        if ! [ -f "$HOME"/.bashrc ]; then
                 touch "$HOME"/.bashrc
                 echo 'source $HOME/Android/.flutterrc' >> "$HOME"/.bashrc
             elif grep -q "$flutter_path" "$HOME"/.bashrc; then
@@ -60,11 +60,11 @@ ex_path () {
 	}
     
     # create dir
-    if [ ! -d "$ANDROID_HOME" ]; then
+    if ! [ -d "$ANDROID_HOME" ]; then
         echo "Directory $ANDROID_HOME does not exist. Creating it now."
         mkdir -p $ANDROID_HOME
         cp .flutterrc $ANDROID_HOME/
-    elif [ ! -f "$ANDROID_HOME"/.flutterrc ]; then
+    elif ! [ -f "$ANDROID_HOME"/.flutterrc ]; then
         cp .flutterrc $ANDROID_HOME/
         flutter-path
     elif cmp -s .flutterrc "$ANDROID_HOME"/.flutterrc; then
@@ -110,9 +110,9 @@ pkg_install () {
 	
 	if [[ "$os" == 'deb' ]]; then
 		sudo apt-get update
-		sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb which -y
+		sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb which curl -y
 	elif [[ "$os" == 'arch' ]]; then
-		sudo pacman -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which
+		sudo pacman -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which curl
 	else
 		exit
 	fi
@@ -123,9 +123,9 @@ pkg_install () {
 flutter_install () {
     
     git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
-    sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+    sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest"
     
-    if ! [[ -f "$sdkmanager_path" ]]; then
+    if ! [[ -d "$sdkmanager_path" ]]; then
         ./sdkmanager.sh
     fi
 		

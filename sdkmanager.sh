@@ -11,7 +11,7 @@ verify_checksum () {
     expected_checksum="$2"
 
     # Check if the file exists
-    if [ ! -f "$file_path" ]; then
+    if ! [ -f "$file_path" ]; then
         echo "Error: File not found!"
         exit 1
     fi
@@ -51,7 +51,7 @@ verify_file
 failedcheck
 
 # create dir
-if [ ! -d "$ANDROID_HOME"/cmdline-tools/latest ]; then
+if ! [ -d "$ANDROID_HOME"/cmdline-tools/latest ]; then
     mkdir -p $ANDROID_HOME/cmdline-tools/latest
 else
     rm -rf $ANDROID_HOME/cmdline-tools/latest/*
