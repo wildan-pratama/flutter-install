@@ -35,7 +35,7 @@ ex_path () {
 
     current_shell=$(basename "$SHELL")
     flutter_path="source \$HOME/Android/.flutterrc"
-	flutter-path () {
+	flutter_path () {
         if [[ "$current_shell" == 'zsh' ]]; then
 	        if ! [ -f "$HOME"/.zshrc ]; then
                 touch "$HOME"/.zshrc
@@ -66,13 +66,13 @@ ex_path () {
         cp .flutterrc $ANDROID_HOME/
     elif ! [ -f "$ANDROID_HOME"/.flutterrc ]; then
         cp .flutterrc $ANDROID_HOME/
-        flutter-path
+        flutter_path
     elif cmp -s .flutterrc "$ANDROID_HOME"/.flutterrc; then
-        flutter-path
+        flutter_path
     else
         rm -rf "$ANDROID_HOME"/.flutterrc
         cp .flutterrc $ANDROID_HOME/
-        flutter-path
+        flutter_path
     fi
 }
 
