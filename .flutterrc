@@ -58,18 +58,19 @@ fi
 
 ## SDK exporting
 export ANDROID_HOME="$HOME/Android"
-#export ANDROID_SDK_ROOT="$ANDROID_HOME/sdk"
 
 ## Tools exporting 
 export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
-#export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
-#export PATH="$PATH:$ANDROID_SDK_ROOT/tools/bin"
-#export PATH="$PATH:$ANDROID_SDK_ROOT/emulator"
-#export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/emulator"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
 
 ## Flutter binary exporting
 export PATH="$PATH:$ANDROID_HOME/flutter/bin"
 
-## Browser exporting for web dev (only support browser base chrome/chromium who installled from repo/not snapd/flatpak)
+## Fix problems with Java apps
+#wmname "LG3D"
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+## Browser exporting for web dev
 #export browser_flutter="brave" #set your browser here
 #export CHROME_EXECUTABLE=$(which $browser_flutter)
