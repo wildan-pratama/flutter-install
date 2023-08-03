@@ -129,7 +129,7 @@ flutter_install () {
         ./sdkmanager.sh
     fi
 		
-	sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33"
+	sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
     sdkmanager --licenses
 	flutter doctor --android-licenses
 	flutter doctor -v
