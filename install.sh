@@ -122,7 +122,7 @@ pkg_install () {
 # Flutter install
 flutter_install () {
     
-    git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
+    git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
     sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest"
     
     if ! [[ -d "$sdkmanager_path" ]]; then
