@@ -11,23 +11,30 @@ dialog-install () {
 
     # Read Input
     read -p "Continue? [1/2]: " confirm
+    
+    # Select OS
+    echo "Please chose your os:"
+    echo "1. Arch base like Artix, Manjaro, Garuda Linux, etc."
+    echo "2. Debian base like Ubuntu, MX Linux, ZorinOS, etc."
+    echo
+
+    # Read Input
+    read -p "Your OS? [1-2]: " OS
+    
 
     # Proccesing input
-    case $confirm in
-    1)
+    if [ "$confirm" == '1' ]; then
         sel_os
         ex_path
         pkg_install
         flutter_install
-        ;;
-    2)
-        echo "Cancel"
+    elif [ "$confirm" == '2' ]; then
+		echo "Cancel"
         exit
-        ;;
-    *)
-        echo "Error"
-        ;;
-    esac
+    else
+		echo "Error"
+		exit
+    fi
 }
 
 # Export path
@@ -78,43 +85,27 @@ ex_path () {
 
 # Select OS and install Package
 sel_os () {
-    # Select OS
-    echo "Please chose your os:"
-    echo "1. Arch base like Artix, Manjaro, Garuda Linux, etc."
-    echo "2. Debian base like Ubuntu, MX Linux, ZorinOS, etc."
-    echo
-
-    # Read Input
-    read -p "Your OS? [1-2]: " OS
-
-    # Proccesing input
-    case $OS in
-    1)
+	# Proccesing input
+    if [ "$OS" == '1' ]; then
         echo "Setup path, directory and installing Package for Arch"
         os="arch"
-        ;;
-    2)
-        echo "Setup path, directory and installing Package for Debian"
+    elif [ "$OS" == '2' ]; then
+		echo "Setup path, directory and installing Package for Debian"
         os="deb"
-        ;;
-    *)
-        echo "Error"
-        ;;
-    esac
+    else
+		echo "Error"
+		exit
+    fi
 }
 
 # Required Package
 pkg_install () {
-
-    
 	
 	if [[ "$os" == 'deb' ]]; then
 		sudo apt-get update
 		sudo apt-get install git clang build-essential cmake ninja-build openjdk-11-jdk openjdk-11-jre libgtk-3-dev android-tools-adb which curl -y
 	elif [[ "$os" == 'arch' ]]; then
 		sudo pacman -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which curl
-	else
-		exit
 	fi
     
 }
@@ -125,9 +116,7 @@ flutter_install () {
     git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
     sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest"
     
-    if ! [[ -d "$sdkmanager_path" ]]; then
-        ./sdkmanager.sh
-    fi
+    ./sdkmanager.sh
 		
 	sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
     sdkmanager --licenses

@@ -1,60 +1,109 @@
 #!/bin/bash
 
-# Check if the correct number of arguments is provided
-verify_checksum () {
-    if [ "$#" -ne 2 ]; then
-        echo "Usage: $0 <file_path> <expected_checksum>"
-    exit 1
-    fi
+# Define the URL, file name, and expected checksum
+URL="https://example.com/path/to/your/file"
+FILENAME="yourfile.ext"
+EXPECTED_CHECKSUM="expected_checksum_here"
 
-    file_path="$1"
-    expected_checksum="$2"
-
-    # Check if the file exists
-    if ! [ -f "$file_path" ]; then
-        echo "Error: File not found!"
-        exit 1
-    fi
-
-    # Compute the actual SHA-256 checksum
-    actual_checksum=$(sha256sum "$file_path" | awk '{print $1}')
-
-    # Compare the actual and expected checksums
-    if [ "$actual_checksum" = "$expected_checksum" ]; then
-        echo "Checksum verified successfully!"
+sdkmanager-install () {
+    # Define the URL, file name, and expected checksum
+    FILENAME="commandlinetools-linux-9477386_latest.zip"
+    URL="https://dl.google.com/android/repository/"$FILENAME""
+    EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
+    processfile
+    if ! [ -d "$ANDROID_HOME"/cmdline-tools/latest ]; then
+        mkdir -p $ANDROID_HOME/cmdline-tools/latest
     else
-        echo "Checksum verification failed!"
-        filecheck="failed"
+        rm -rf $ANDROID_HOME/cmdline-tools/latest/*
     fi
+    unzip $FILENAME
+    mv cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest/
+}
 
-    }
+# Function to calculate checksum
+calculate_checksum() {
+    local file="$1"
+    echo $(sha256sum "$file" | awk '{print $1}')
+}
 
-filesdk="commandlinetools-linux-9477386_latest.zip"
+redownload () {
+    echo "Downloaded file checksum mismatch. Redownload file?."
+    echo 
+    echo "1. Yes."
+    echo "2. No."
+    echo
 
-verify_file () {
-    verify_checksum "$filesdk" bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
-    }
+    # Read Input
+    read -p "Redownload? [1-2]: " redown
 
-failedcheck () {
-    if [[ "$filecheck" == 'failed' ]]; then
-        rm -rf "$filesdk"
-        curl -o "$filesdk" https://dl.google.com/android/repository/"$filesdk"
-        verify_file
+    if [ "$redown" == '1' ]; then
+        processfile
+    else
+        exit
     fi
-    }
+}
 
-if [ ! -f "$filesdk" ]; then
-    curl -o "$filesdk" https://dl.google.com/android/repository/"$filesdk"
-fi
-
-verify_file
-failedcheck
-
-# create dir
-if ! [ -d "$ANDROID_HOME"/cmdline-tools/latest ]; then
-    mkdir -p $ANDROID_HOME/cmdline-tools/latest
+processfile () {
+# Check if the file exists
+if [ -e "$FILENAME" ]; then
+    # Calculate the current checksum of the file
+    CURRENT_CHECKSUM=$(calculate_checksum "$FILENAME")
+    
+    # Compare the current checksum with the expected checksum
+    if [ "$CURRENT_CHECKSUM" == "$EXPECTED_CHECKSUM" ]; then
+        echo "Checksum matched. File is valid."
+    else
+        echo "Checksum mismatch. Downloading the file again..."
+        # Download the file using curl
+        curl -o "$FILENAME" "$URL"
+        
+        # Verify the newly downloaded file's checksum
+        NEW_CHECKSUM=$(calculate_checksum "$FILENAME")
+        if [ "$NEW_CHECKSUM" == "$EXPECTED_CHECKSUM" ]; then
+            echo "Downloaded file checksum verified. File is valid."
+        else
+            redownload
+        fi
+    fi
 else
-    rm -rf $ANDROID_HOME/cmdline-tools/latest/*
+    echo "File not found. Downloading the file..."
+    # Download the file using curl
+    curl -o "$FILENAME" "$URL"
+    
+    # Verify the downloaded file's checksum
+    NEW_CHECKSUM=$(calculate_checksum "$FILENAME")
+    if [ "$NEW_CHECKSUM" == "$EXPECTED_CHECKSUM" ]; then
+        echo "Downloaded file checksum verified. File is valid."
+    else
+        redownload
+    fi
 fi
-unzip commandlinetools-linux-9477386_latest.zip
-mv cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest/
+}
+
+echo "Do you want Install with Android Studio?"
+	echo 
+	echo "1. Yes."
+	echo "2. No."
+	echo
+
+	# Read Input
+	read -p "Yes/No? [1-2]: " astudio
+
+if [[ "$astudio" == '1' ]]; then
+	# Define the URL, file name, and expected checksum
+    FILENAME="android-studio-2022.3.1.18-linux.tar.gz"
+    URL="https://r1---sn-npoe7nsk.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.18/"$FILENAME""
+    EXPECTED_CHECKSUM="24215e1324a6ac911810b2cc1afb2d735cf745dfbc06918a42b8d6fbc6bf7433"
+    processfile
+    if ! [ -d "$HOME"/.local/share/applications ]; then
+    mkdir -p $HOME/.local/share/applications/
+    fi
+    cp android-studio.desktop $HOME/.local/share/applications/
+    tar -xvf $FILENAME
+    mv android-studio $ANDROID_HOME/
+    sdkmanager-install
+elif [[ "$astudio" == '2' ]]; then
+	sdkmanager-install
+else
+    echo "Input error"
+fi
