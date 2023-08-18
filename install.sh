@@ -21,10 +21,19 @@ dialog-install () {
     # Read Input
     read -p "Your OS? [1-2]: " OS
     
-
+	if [ "$OS" == '1' ]; then
+        echo "Setup path, directory and installing Package for Arch"
+        os="arch"
+    elif [ "$OS" == '2' ]; then
+		echo "Setup path, directory and installing Package for Debian"
+        os="deb"
+    else
+		echo "Error"
+		exit
+    fi
+    
     # Proccesing input
     if [ "$confirm" == '1' ]; then
-        sel_os
         ex_path
         pkg_install
         flutter_install
@@ -42,7 +51,7 @@ ex_path () {
 
     current_shell=$(basename "$SHELL")
     flutter_path="source \$HOME/Android/.flutterrc"
-	flutter_path () {
+	exflutter_path () {
         if [[ "$current_shell" == 'zsh' ]]; then
 	        if ! [ -f "$HOME"/.zshrc ]; then
                 touch "$HOME"/.zshrc
@@ -75,26 +84,11 @@ ex_path () {
         cp .flutterrc $ANDROID_HOME/
         flutter_path
     elif cmp -s .flutterrc "$ANDROID_HOME"/.flutterrc; then
-        flutter_path
+        exflutter_path
     else
         rm -rf "$ANDROID_HOME"/.flutterrc
         cp .flutterrc $ANDROID_HOME/
-        flutter_path
-    fi
-}
-
-# Select OS and install Package
-sel_os () {
-	# Proccesing input
-    if [ "$OS" == '1' ]; then
-        echo "Setup path, directory and installing Package for Arch"
-        os="arch"
-    elif [ "$OS" == '2' ]; then
-		echo "Setup path, directory and installing Package for Debian"
-        os="deb"
-    else
-		echo "Error"
-		exit
+        exflutter_path
     fi
 }
 
@@ -113,18 +107,17 @@ pkg_install () {
 # Flutter install
 flutter_install () {
     
-    git clone https://github.com/flutter/flutter.git $ANDROID_HOME/flutter
+    git clone https://github.com/flutter/flutter.git -b stable $ANDROID_HOME/flutter
     sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest"
     
     ./sdkmanager.sh
 		
 	sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
     sdkmanager --licenses
+    flutter precache
 	flutter doctor --android-licenses
 	flutter doctor -v
-
     source $HOME/Android/.flutterrc
-
     
 }
 
