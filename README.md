@@ -8,6 +8,14 @@ Arch linux based OS (Pacman).
 
 Debian 11 based OS, Ubuntu 22.04 LTS based OS or newer (APT).
 
+<!--
+
+Fendora based OS (DNF).
+
+Opensuse based OS (DNF).
+
+-->
+bash, zsh or fish shell.
 
 ## To Install
 
