@@ -107,7 +107,7 @@ pkg_install () {
 # Flutter install
 flutter_install () {
     
-    git clone https://github.com/flutter/flutter.git -b stable $ANDROID_HOME/flutter
+    git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
     sdkmanager_path="$ANDROID_HOME/cmdline-tools/latest"
     
     ./sdkmanager.sh
@@ -122,24 +122,18 @@ flutter_install () {
 }
 
 
-install () {
-    # Confirm
-    current_shell=$(basename "$SHELL")
-    if [[ "$current_shell" == 'zsh' ]]; then
-        source .flutterrc
-        dialog-install
-    elif [[ "$current_shell" == 'bash' ]]; then
-        source .flutterrc
-        dialog-install
-    else
-        echo
-        echo "only support bash/zsh shell (your shell is: $current_shell)"
-        echo
-        echo "exit.."
-        exit
-    fi
-    
-}
-
-install
-
+# Confirm
+current_shell=$(basename "$SHELL")
+if [[ "$current_shell" == 'zsh' ]]; then
+    source .flutterrc
+    dialog-install
+elif [[ "$current_shell" == 'bash' ]]; then
+    source .flutterrc
+    dialog-install
+else
+    echo
+    echo "only support bash/zsh shell (your shell is: $current_shell)"
+    echo
+    echo "exit.."
+    exit
+fi

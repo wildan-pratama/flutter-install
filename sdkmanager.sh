@@ -101,6 +101,7 @@ if [[ "$astudio" == '1' ]]; then
     cp android-studio.desktop $HOME/.local/share/applications/
     tar -xvf $FILENAME
     mv android-studio $ANDROID_HOME/
+    flutter config --android-studio-dir=$ANDROID_HOME/android-studio
     sdkmanager-install
 elif [[ "$astudio" == '2' ]]; then
 	sdkmanager-install
