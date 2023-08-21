@@ -71,6 +71,10 @@ export PATH="$PATH:$ANDROID_HOME/flutter/bin"
 ## Androidstudio binary exporting
 export PATH="$PATH:/opt/android-studio/bin"
 
+## Fix problems with Java apps
+#wmname "LG3D"
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 ## Browser exporting for web dev
 #export browser_flutter="brave-browser" #set your browser here
 #export CHROME_EXECUTABLE=$(which $browser_flutter)
