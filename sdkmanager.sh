@@ -95,13 +95,10 @@ if [[ "$astudio" == '1' ]]; then
     URL="https://r1---sn-npoe7nsk.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.18/"$FILENAME""
     EXPECTED_CHECKSUM="24215e1324a6ac911810b2cc1afb2d735cf745dfbc06918a42b8d6fbc6bf7433"
     processfile
-    if ! [ -d "$HOME"/.local/share/applications ]; then
-    mkdir -p $HOME/.local/share/applications/
-    fi
-    cp android-studio.desktop $HOME/.local/share/applications/
+    cp android-studio.desktop /usr/share/applications/
     tar -xvf $FILENAME
-    mv android-studio $ANDROID_HOME/
-    flutter config --android-studio-dir=$ANDROID_HOME/android-studio
+    sudo mv android-studio /opt/
+    flutter config --android-studio-dir=/opt/android-studio
     sdkmanager-install
 elif [[ "$astudio" == '2' ]]; then
 	sdkmanager-install

@@ -1,5 +1,6 @@
 ## Notes
 _This script will install android sdk and flutter sdk on ~/Android/_
+_If you select install with Android Studio, Android Studio will installed on /opt/android-studio_
 
 # Flutter installer
 

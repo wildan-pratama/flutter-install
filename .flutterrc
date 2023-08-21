@@ -69,7 +69,7 @@ export PATH="$PATH:$ANDROID_HOME/platform-tools"
 export PATH="$PATH:$ANDROID_HOME/flutter/bin"
 
 ## Androidstudio binary exporting
-export PATH="$PATH:$ANDROID_HOME/android-studio/bin"
+export PATH="$PATH:/opt/android-studio/bin"
 
 ## Browser exporting for web dev
 #export browser_flutter="brave-browser" #set your browser here

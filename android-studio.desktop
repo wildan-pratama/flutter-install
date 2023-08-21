@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=Android Studio
-Exec=Android/android-studio/bin/studio.sh
-Icon=Android/android-studio/bin/studio.png
+Exec=/opt/android-studio/bin/studio.sh
+Icon=/opt/android-studio/bin/studio.png
 Terminal=false
 Categories=Utility;Development;
