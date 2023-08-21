@@ -116,11 +116,11 @@ flutter_install () {
     
     git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
     ./sdkmanager.sh
-	sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
+    sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
     sdkmanager --licenses
     flutter precache
-	flutter doctor --android-licenses
-	flutter doctor -v
+    flutter doctor --android-licenses
+    flutter doctor -v
     
 }
 
