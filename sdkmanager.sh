@@ -18,6 +18,7 @@ sdkmanager-install () {
     fi
     unzip $FILENAME
     mv cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest/
+    rm -rf cmdline-tools
 }
 
 # Function to calculate checksum
@@ -97,6 +98,9 @@ if [[ "$astudio" == '1' ]]; then
     processfile
     cp android-studio.desktop /usr/share/applications/
     tar -xvf $FILENAME
+    if [ -d /opt/android-studio ]; then
+        sudo rm -rf /opt/android-studio
+    fi
     sudo mv android-studio /opt/
     flutter config --android-studio-dir=/opt/android-studio
     sdkmanager-install
