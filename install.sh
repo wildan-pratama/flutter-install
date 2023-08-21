@@ -116,6 +116,11 @@ flutter_install () {
     
     git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
     ./sdkmanager.sh
+    if [[ "$current_shell" == 'zsh | bash' ]]; then
+        source $ANDROID_HOME/flutterrc
+    else
+        source $ANDROID_HOME/flutter.fish
+    fi
     sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
     sdkmanager --licenses
     flutter precache
