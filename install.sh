@@ -23,7 +23,7 @@ dialog-install () {
     # Read Input
     read -p "Your OS? [1-2]: " OS
     
-	if [ "$OS" == '1' ]; then
+    if [ "$OS" == '1' ]; then
         os="pacman"
     elif [ "$OS" == '2' ]; then
         os="apt"
@@ -42,45 +42,43 @@ dialog-install () {
         pkg_install
         flutter_install
     elif [ "$confirm" == '2' ]; then
-		echo "Cancel"
+        echo "Cancel"
         exit
     else
-		echo "Error"
-		exit
+        echo "Error"
+        exit
     fi
 }
 
 # Export path
 ex_path () {
-
     flutter_path="source \$HOME/Android/flutterrc"
-    
-        if [[ "$current_shell" == 'zsh' ]]; then
-	        if ! [ -f "$HOME"/.zshrc ]; then
-                touch "$HOME"/.zshrc
-                echo 'source $HOME/Android/flutterrc' >> "$HOME"/.zshrc
-            elif grep -q "$flutter_path" "$HOME"/.zshrc; then
-                echo "Flutter is already on PATH"
-            else
-                echo 'source $HOME/Android/flutterrc' >> "$HOME"/.zshrc
-            fi
-        elif [[ "$current_shell" == 'bash' ]]; then
-	        if ! [ -f "$HOME"/.bashrc ]; then
-                touch "$HOME"/.bashrc
-                echo 'source $HOME/Android/flutterrc' >> "$HOME"/.bashrc
-            elif grep -q "$flutter_path" "$HOME"/.bashrc; then
-                echo "Flutter is already on PATH"
-            else
-                echo 'source $HOME/Android/flutterrc' >> "$HOME"/.bashrc
-            fi
-        elif [[ "$current_shell" == 'fish' ]]; then
-        flutter_path="source \$HOME/Android/flutter.fish"
-	        if grep -q "$flutter_path" "$HOME"/.config/fish/config.fish; then
-                echo "Flutter is already on PATH"
-            else
-                echo 'source $HOME/Android/flutter.fish' >> "$HOME"/.config/fish/config.fish
-            fi
+    if [[ "$current_shell" == 'zsh' ]]; then
+        if ! [ -f "$HOME"/.zshrc ]; then
+            touch "$HOME"/.zshrc
+            echo 'source $HOME/Android/flutterrc' >> "$HOME"/.zshrc
+        elif grep -q "$flutter_path" "$HOME"/.zshrc; then
+            echo "Flutter is already on PATH"
+        else
+            echo 'source $HOME/Android/flutterrc' >> "$HOME"/.zshrc
         fi
+    elif [[ "$current_shell" == 'bash' ]]; then
+	    if ! [ -f "$HOME"/.bashrc ]; then
+            touch "$HOME"/.bashrc
+            echo 'source $HOME/Android/flutterrc' >> "$HOME"/.bashrc
+        elif grep -q "$flutter_path" "$HOME"/.bashrc; then
+            echo "Flutter is already on PATH"
+        else
+            echo 'source $HOME/Android/flutterrc' >> "$HOME"/.bashrc
+        fi
+    elif [[ "$current_shell" == 'fish' ]]; then
+        flutter_path="source \$HOME/Android/flutter.fish"
+	    if grep -q "$flutter_path" "$HOME"/.config/fish/config.fish; then
+            echo "Flutter is already on PATH"
+        else
+            echo 'source $HOME/Android/flutter.fish' >> "$HOME"/.config/fish/config.fish
+        fi
+    fi
     
     # create dir
     if ! [ -d "$ANDROID_HOME" ]; then
