@@ -4,11 +4,10 @@ _This script will install android sdk and flutter sdk on ~/Android. If you selec
 # Flutter installer
 
 ## Requirements
-Arch linux based OS like Archcraft, Endeavouros or Manjaro.
+Arch linux based OS (Pacman).
 
-Debian 11 based OS, Ubuntu 22.04 LTS based OS or newer.
+Debian 11 based OS, Ubuntu 22.04 LTS based OS or newer (APT).
 
-bash or zsh shell.
 
 ## To Install
 
