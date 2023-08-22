@@ -16,7 +16,7 @@ dialog-install () {
     echo "Please chose your os:"
     echo "1. Arch linux based OS (Pacman)."
     echo "2. Debian 11 based OS or newer (APT)."
-	echo "3. Ubuntu 20.04 LTS based OS or newer."
+	echo "3. Ubuntu 20.04 LTS based OS or newer (APT)."
     echo
 
     # Read Input
@@ -83,20 +83,22 @@ ex_path () {
 # Required Package
 pkg_install () {
 	
-	if [[ "$os" == 'apt | aptub' ]]; then
+	if [[ "$os" == "apt" || "$os" == "aptub" ]]; then
 		sudo apt-get update
-			sudo apt-get install git clang build-essential cmake ninja-build wget apt-transport-https libgtk-3-dev android-tools-adb which curl -y
-			sudo mkdir -p /etc/apt/keyrings
-			wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /etc/apt/keyrings/adoptium.asc
-			if [ "$os" = 'apt' ]; then
+		sudo apt-get install git clang build-essential cmake ninja-build wget apt-transport-https libgtk-3-dev android-tools-adb which curl -y
+		sudo mkdir -p /etc/apt/keyrings
+		wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | sudo tee /etc/apt/keyrings/adoptium.asc
+		
+		if [ "$os" = 'apt' ]; then
 			echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list
-			elif [ "$os" = 'aptub' ]; then
+		elif [ "$os" = 'aptub' ]; then
 			echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^UBUNTU_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list
-			fi
-			sudo apt-get update
-			sudo apt-get install temurin-11-jdk temurin-11-jre -y
+		fi
+		
+		sudo apt-get update
+		sudo apt-get install temurin-11-jdk -y
 	elif [[ "$os" == 'pacman' ]]; then
-		sudo pacman -Syy git base-devel clang cmake ninja jre11-openjdk jdk11-openjdk gtk3 android-tools which curl
+		sudo pacman -Syy git base-devel clang cmake ninja jdk11-temurin gtk3 android-tools which curl
 	fi
     
 }
@@ -119,7 +121,7 @@ flutter_install () {
 
 # Confirm
 current_shell=$(basename "$SHELL")
-if [[ "$current_shell" == 'zsh | bash' ]]; then
+if [[ "$current_shell" == "bash" || "$current_shell" == "zsh" ]]; then
     source flutterrc
     dialog-install
 elif [[ "$current_shell" == 'fish' ]]; then

@@ -17,5 +17,4 @@ set -x PATH /opt/android-studio/bin $PATH
 set -x _JAVA_AWT_WM_NONREPARENTING "1"
 
 ## Browser exporting for web dev
-#set -x browser_flutter "brave-browser-nightly" #set your browser here
-#set -x CHROME_EXECUTABLE "$(which $browser_flutter)"
+#set -x CHROME_EXECUTABLE "brave-browser-nightly"
