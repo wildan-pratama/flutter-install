@@ -4,6 +4,7 @@
 URL="https://example.com/path/to/your/file"
 FILENAME="yourfile.ext"
 EXPECTED_CHECKSUM="expected_checksum_here"
+ANDROID_HOME="$HOME/Android/"
 
 sdkmanager-install () {
     # Define the URL, file name, and expected checksum
