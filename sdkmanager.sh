@@ -93,9 +93,9 @@ echo "Do you want Install with Android Studio?"
 
 if [[ "$astudio" == '1' ]]; then
 	# Define the URL, file name, and expected checksum
-    FILENAME="android-studio-2022.3.1.18-linux.tar.gz"
-    URL="https://r1---sn-npoe7nsk.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.18/"$FILENAME""
-    EXPECTED_CHECKSUM="24215e1324a6ac911810b2cc1afb2d735cf745dfbc06918a42b8d6fbc6bf7433"
+    FILENAME="android-studio-2022.3.1.19-linux.tar.gz"
+    URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.19/"$FILENAME""
+    EXPECTED_CHECKSUM="250625dcab183e0c68ebf12ef8a522af7369527d76f1efc704f93c05b02ffa9e"
     processfile
     cp android-studio.desktop /usr/share/applications/
     tar -xvf $FILENAME
