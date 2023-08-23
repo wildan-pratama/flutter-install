@@ -96,9 +96,9 @@ pkg_install () {
 		fi
 		
 		sudo apt-get update
-		sudo apt-get install temurin-11-jdk -y
+		sudo apt-get install temurin-11-jdk temurin-11-jre -y
 	elif [[ "$os" == 'pacman' ]]; then
-		sudo pacman -Syy git base-devel clang cmake ninja jdk11-temurin gtk3 android-tools which curl
+		sudo pacman -Syy git base-devel clang cmake ninja jdk11-openjdk jre11-openjdk gtk3 android-tools which curl
 	fi
     
 }
