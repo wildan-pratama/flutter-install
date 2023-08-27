@@ -21,7 +21,7 @@ if [ "$confirm" = '1' ]
 	echo
 	
 	# Read Input
-	echo -n "Your OS? [1-2]: "
+	echo -n "Your OS? [1-3]: "
 	read OS
 	
 	if [ "$OS" = '1' ]
