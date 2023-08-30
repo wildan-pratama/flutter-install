@@ -6,7 +6,7 @@ _This script will install android sdk and flutter sdk on ~/Android. If you selec
 ## Requirements
 Arch linux based OS (Pacman).
 
-Debian 11 based OS, Ubuntu 22.04 LTS based OS or newer (APT).
+Debian 11 based OS, Ubuntu 20.04 LTS based OS or newer (APT).
 
 <!--
 
