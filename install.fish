@@ -1,6 +1,6 @@
 #!/bin/fish
 source flutter.fish
-echo "This script will install package required by Flutter and will download required sdk to ~/Android"
+echo "This script will install package required by Flutter and will download required sdk to $ANDROID_HOME"
 echo
     
 echo "1. Continue."
@@ -35,6 +35,7 @@ if [ "$confirm" = '1' ]
 		exit
 	end
 	
+	# Exporting PATH
 	set -x flutter_path "source \$HOME/Android/flutter.fish"
 	if grep -q "$flutter_path" "$HOME"/.config/fish/config.fish
 		echo "Flutter is already on PATH"
@@ -42,17 +43,18 @@ if [ "$confirm" = '1' ]
 		echo 'source $HOME/Android/flutter.fish' >> "$HOME"/.config/fish/config.fish
 	end
 	
-	# create dir
-	if test -d "$ANDROID_HOME"
+	# Create DIR
+	if test -d "$ANDROID_SDK_ROOT"
 		echo "The directory exists."
 	else
 		echo "Directory $ANDROID_HOME does not exist. Creating it now."
-		mkdir -p $ANDROID_HOME
+		mkdir -p $ANDROID_SDK_ROOT
 	end
 	
 	cp -r flutter.fish $ANDROID_HOME/
 	source $ANDROID_HOME/flutter.fish
 	
+	# Install PKGS
 	if test "$os" = "apt" -o "$os" = "aptub"
 		sudo apt-get update
 		sudo apt-get install git clang build-essential cmake ninja-build wget apt-transport-https libgtk-3-dev android-tools-adb which curl -y
@@ -72,6 +74,7 @@ if [ "$confirm" = '1' ]
 		sudo pacman -Syy git base-devel clang cmake ninja jdk11-openjdk jre11-openjdk gtk3 android-tools which curl
 	end
 	
+	# Install Flutter and Android SDK
 	git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
 	./sdkmanager.sh
 	source $ANDROID_HOME/flutter.fish
