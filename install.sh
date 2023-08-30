@@ -23,7 +23,7 @@ if [[ "$current_shell" == "bash" || "$current_shell" == "zsh" ]]; then
         echo
 
     # Read Input
-    read -p "Your OS? [1-2]: " OS
+    read -p "Your OS? [1-3]: " OS
     
         if [ "$OS" == '1' ]; then
             os="pacman"
