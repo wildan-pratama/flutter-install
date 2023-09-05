@@ -4,22 +4,31 @@
 URL="https://example.com/path/to/your/file"
 FILENAME="yourfile.ext"
 EXPECTED_CHECKSUM="expected_checksum_here"
-ANDROID_HOME="$HOME/Android/"
+ANDROID_SDK_ROOT="$HOME/Android/sdk"
 
 sdkmanager-install () {
     # Define the URL, file name, and expected checksum
+    FILE="sdkmanager"
     FILENAME="commandlinetools-linux-9477386_latest.zip"
     URL="https://dl.google.com/android/repository/"$FILENAME""
     EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
     processfile
-    if ! [ -d "$ANDROID_HOME"/cmdline-tools/latest ]; then
-        mkdir -p $ANDROID_HOME/cmdline-tools/latest
+    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
+        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
     else
-        rm -rf $ANDROID_HOME/cmdline-tools/latest/*
+        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
     fi
-    unzip $FILENAME
-    mv cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest/
+    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
     rm -rf cmdline-tools
+}
+
+# Extract FILE
+extract_file() {
+	if [ "$FILE" == "sdkmanager" ]; then
+		unzip $FILENAME
+	elif [ "$FILE" == "android-studio" ]; then
+		tar -xvf $FILENAME
+	fi
 }
 
 # Function to calculate checksum
@@ -54,6 +63,7 @@ if [ -e "$FILENAME" ]; then
     # Compare the current checksum with the expected checksum
     if [ "$CURRENT_CHECKSUM" == "$EXPECTED_CHECKSUM" ]; then
         echo "Checksum matched. File is valid."
+		extract_file
     else
         echo "Checksum mismatch. Downloading the file again..."
         # Download the file using curl
@@ -63,6 +73,7 @@ if [ -e "$FILENAME" ]; then
         NEW_CHECKSUM=$(calculate_checksum "$FILENAME")
         if [ "$NEW_CHECKSUM" == "$EXPECTED_CHECKSUM" ]; then
             echo "Downloaded file checksum verified. File is valid."
+            extract_file
         else
             redownload
         fi
@@ -76,6 +87,7 @@ else
     NEW_CHECKSUM=$(calculate_checksum "$FILENAME")
     if [ "$NEW_CHECKSUM" == "$EXPECTED_CHECKSUM" ]; then
         echo "Downloaded file checksum verified. File is valid."
+        extract_file
     else
         redownload
     fi
@@ -93,12 +105,12 @@ echo "Do you want Install with Android Studio?"
 
 if [[ "$astudio" == '1' ]]; then
 	# Define the URL, file name, and expected checksum
+	FILE="android-studio"
     FILENAME="android-studio-2022.3.1.19-linux.tar.gz"
     URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.19/"$FILENAME""
     EXPECTED_CHECKSUM="250625dcab183e0c68ebf12ef8a522af7369527d76f1efc704f93c05b02ffa9e"
     processfile
     cp android-studio.desktop /usr/share/applications/
-    tar -xvf $FILENAME
     if [ -d /opt/android-studio ]; then
         sudo rm -rf /opt/android-studio
     fi
