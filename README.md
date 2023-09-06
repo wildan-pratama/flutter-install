@@ -35,7 +35,7 @@ cd flutter-install
 
 ## After installation
 
-_If you want change your shell, you must put your path manualy_
+If you want change your shell, you must put your path manualy
 
 
 ```
@@ -46,4 +46,17 @@ source $HOME/Android/flutterrc
 # from bash/zsh to fish
 ## add this line to ~/.config/fish/config.fish, if already exits you can skip
 source $HOME/Android/flutter.fish
+```
+
+You can set browser for flutter web on ~Android/flutterrc or ~/Android/flutter.fish
+
+
+```
+# fish to bash/zsh
+## remove comment (#) and edit this line on ~/Android/flutter.fish
+set -x CHROME_EXECUTABLE "/path/to/your/browser"
+
+# bash/zsh
+## remove comment (#) and edit this line on ~Android/flutterrc
+export CHROME_EXECUTABLE="/path/to/your/browser"
 ```
