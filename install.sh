@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 current_shell=$(basename "$SHELL")
 case $current_shell in
@@ -177,8 +177,6 @@ case $current_shell in
         ## installing sdk
         ./sdkmanager.sh $astudio
         
-        
-        source $ANDROID_HOME/flutterrc
         sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
         sdkmanager --licenses
         flutter precache

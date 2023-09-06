@@ -1,11 +1,12 @@
-#!/bin/fish
+#!/usr/bin/env fish
+
 source flutter.fish
 echo
 echo "This script will install package required by Flutter and will download required sdk to $ANDROID_HOME"
 echo
 
 # Read Input
-echo -n "Continue? [Yes/yes/y/No/no/n]: "
+echo "Continue? [Yes/yes/y/No/no/n]: "
 read confirm
     
 # Proccesing input
@@ -21,7 +22,7 @@ switch $confirm
 		echo
 	
 		# Read Input
-		echo -n "Your OS? [1-3]: "
+		echo "Your OS? [1-3]: "
 		read OS
 	
 		if [ "$OS" = '1' ]
@@ -41,7 +42,7 @@ switch $confirm
         echo "Do you want Install with Android Studio?"
 		echo 
 		
-		echo -n "[Yes/yes/y/No/no/n]: "
+		echo "[Yes/yes/y/No/no/n]: "
 		read astudio
 		
 		switch $astudio
@@ -57,7 +58,7 @@ switch $confirm
 				echo "1. Java 11 LTS"
 				echo "2. Java 17 LTS"
 				echo
-				echo -p "[1/2]?: "
+				echo "[1/2]?: "
 				read javaver
 				
 				if [ "$javaver" = '1' ]
@@ -132,8 +133,7 @@ switch $confirm
 		end
 	
 		# Exporting PATH
-		set -x flutter_path "source \$HOME/Android/flutter.fish"
-		if grep -q "$flutter_path" "$HOME"/.config/fish/config.fish
+		if grep -q "source \$HOME/Android/flutter.fish" "$HOME"/.config/fish/config.fish
 			echo "Flutter is already on PATH"
 		else
 			echo 'source $HOME/Android/flutter.fish' >> "$HOME"/.config/fish/config.fish
@@ -158,8 +158,6 @@ switch $confirm
         ## installing sdk
         ./sdkmanager.sh $astudio
         
-        
-        source $ANDROID_HOME/flutterrc
         sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
         sdkmanager --licenses
         flutter precache
