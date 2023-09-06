@@ -5,7 +5,6 @@ echo "This script will install package required by Flutter and will download req
 echo
 
 # Read Input
-#set -p "Continue? [Yes/yes/y/No/no/n]: " confirm
 echo -n "Continue? [Yes/yes/y/No/no/n]: "
 read confirm
     
@@ -32,7 +31,8 @@ switch $confirm
 		else if [ "$OS" = '3' ]
 			set -x os "aptub"
 		else
-			echo "Error"
+			echo
+		    echo "Please slect your os (1, 2 or 3)"
 			exit
 		end
 		
@@ -41,9 +41,47 @@ switch $confirm
         echo "Do you want Install with Android Studio?"
 		echo 
 		
-		#set -p "[Yes/yes/y/No/no/n]: " astudio
 		echo -n "[Yes/yes/y/No/no/n]: "
 		read astudio
+		
+		switch $astudio
+			case "Yes" "yes" "y"
+				echo
+				echo "Installing with Android Studio"
+				echo 
+				
+			case "No" "no" "n"
+				echo
+				echo "Please chose Java version: "
+				echo
+				echo "1. Java 11 LTS"
+				echo "2. Java 17 LTS"
+				echo
+				echo -p "[1/2]?: "
+				read javaver
+				
+				if [ "$javaver" = '1' ]
+					echo
+					echo "selecting Java 11 LTS"
+					echo
+				else if [ "$javaver" = '2' ]
+					echo
+					echo "selecting Java 17 LTS"
+					echo
+				else
+					echo
+					echo "Error, Please select correct java version (1 or 2)."
+					echo
+					exit
+				end
+			
+			case "*"
+				echo
+				echo "Error, Please repeat from the beginning and choose install with or without android."
+				echo
+				exit
+		end
+				
 		
 		# Install PKGS
 		if test "$os" = "apt" -o "$os" = "aptub"
@@ -67,13 +105,12 @@ switch $confirm
 					end
 		
 					sudo apt-get update
-					sudo apt-get install temurin-11-jdk temurin-11-jre -y
-				
-				case "*"
-					echo
-					echo "Error, Please repeat from the beginning and choose install with or without android."
-					echo
-					exit
+					
+					if [ "$javaver" = '1' ]
+						sudo apt-get install temurin-11-jdk temurin-11-jre -y
+					else if [ "$javaver" = '2' ]
+						sudo apt-get install temurin-17-jdk temurin-17-jre -y
+					end
 			end
 		
 		else if [ "$os" = 'pacman' ]
@@ -86,13 +123,11 @@ switch $confirm
 					echo
 				
 				case "No" "no" "n"
-					sudo pacman -Syy --noconfirm jdk11-openjdk jre11-openjdk 
-				
-				case "*"
-					echo
-					echo "Error, Please repeat from the beginning and choose install with or without android."
-					echo
-					exit
+					if [ "$javaver" = '1' ]
+						sudo pacman -Syy --noconfirm jdk11-openjdk jre11-openjdk 
+					else if [ "$javaver" = '2' ]
+						sudo pacman -Syy --noconfirm jdk17-openjdk jre17-openjdk
+					end
 			end
 		end
 	

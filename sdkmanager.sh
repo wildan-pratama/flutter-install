@@ -55,7 +55,7 @@ redownload () {
 		
 		*)
 			echo
-			echo "Please start again from begining"
+			echo "Please start again from beginning"
 			echo
 			exit
 			;;

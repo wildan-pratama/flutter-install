@@ -33,7 +33,8 @@ case $current_shell in
         elif [ "$OS" == '3' ]; then
             os="aptub"
         else
-		    echo "Error"
+		    echo
+		    echo "Please slect your os (1, 2 or 3)"
 		    exit
         fi
         
@@ -44,6 +45,46 @@ case $current_shell in
 
 		# Read Input
 		read -p "[Yes/yes/y/No/no/n]: " astudio
+		
+		case $astudio in
+			Yes | yes | y)
+				echo
+				echo "Installing with Android Studio"
+				echo 
+				;;
+				
+			No | no | n)
+				echo
+				echo "Please chose Java version: "
+				echo
+				echo "1. Java 11 LTS"
+				echo "2. Java 17 LTS"
+				echo
+				
+				read -p "[1/2]?: " javaver
+				
+				if [ "$javaver" == '1' ]; then
+					echo
+					echo "selecting Java 11 LTS"
+					echo
+				elif [ "$javaver" == '2' ]; then
+					echo
+					echo "selecting Java 17 LTS"
+					echo
+				else
+					echo
+					echo "Error, Please select correct java version (1 or 2)."
+					echo
+					exit
+				fi
+				;;
+				
+			*)
+				echo
+				echo "Error, Please repeat from the beginning and choose install with or without android."
+				echo
+				exit
+		esac
         
         # Intalling PKGS
         if [[ "$os" == "apt" || "$os" == "aptub" ]]; then
@@ -65,15 +106,14 @@ case $current_shell in
 					elif [ "$os" = 'aptub' ]; then
 						echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^UBUNTU_CODENAME/{print$2}' /etc/os-release) main" | sudo tee /etc/apt/sources.list.d/adoptium.list
 					fi
-		
+					
 					sudo apt-get update
-					sudo apt-get install temurin-11-jdk temurin-11-jre -y
-					;;
-				*)
-					echo
-					echo "Error, Please repeat from the beginning and choose install with or without android."
-					echo
-					exit
+					
+					if [ "$javaver" = '1' ]; then
+						sudo apt-get install temurin-11-jdk temurin-11-jre -y
+					elif [ "$javaver" = '2' ]; then
+						sudo apt-get install temurin-17-jdk temurin-17-jre -y
+					fi
 					;;
 			esac
 
@@ -87,14 +127,11 @@ case $current_shell in
 					;;
 				
 				No | no | n)
-					sudo pacman -Syy --noconfirm jdk11-openjdk jre11-openjdk 
-					;;
-				
-				*)
-					echo
-					echo "Error, Please repeat from the beginning and choose install with or without android."
-					echo
-					exit
+					if [ "$javaver" = '1' ]; then
+						sudo pacman -Syy --noconfirm jdk11-openjdk jre11-openjdk 
+					elif [ "$javaver" = '2' ]; then
+						sudo pacman -Syy --noconfirm jdk17-openjdk jre17-openjdk 
+					fi
 					;;
 			esac
 	    fi
