@@ -52,7 +52,7 @@ You can set browser for flutter web on ~Android/flutterrc or ~/Android/flutter.f
 
 
 ```
-# fish to bash/zsh
+# fish
 ## remove comment (#) and edit this line on ~/Android/flutter.fish
 set -x CHROME_EXECUTABLE "/path/to/your/browser"
 
