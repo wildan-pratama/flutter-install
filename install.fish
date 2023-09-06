@@ -113,6 +113,7 @@ switch $confirm
 		end
 	
 		cp -r flutter.fish $ANDROID_HOME/
+		cp -r flutterrc $ANDROID_HOME/
 		source $ANDROID_HOME/flutter.fish
 	
 		# Install Flutter and Android SDK

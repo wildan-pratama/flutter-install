@@ -32,3 +32,18 @@ cd flutter-install
 
 ![image](https://user-images.githubusercontent.com/84622086/233557218-89b775bf-59c6-4f1f-9006-33fe9cf6dc0c.png)
 
+
+## After installation
+
+_If you want change your shell, you must put your path manualy_
+
+
+```
+# from fish to bash/zsh
+## add this line to your .bashrc or .zshrc, if already exits you can skip
+source $HOME/Android/flutterrc
+
+# from bash/zsh to fish
+## add this line to ~/.config/fish/config.fish, if already exits you can skip
+source $HOME/Android/flutter.fish
+```

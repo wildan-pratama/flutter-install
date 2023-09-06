@@ -130,6 +130,7 @@ case $current_shell in
         fi
     
         cp -r flutterrc $ANDROID_HOME/
+        cp -r flutter.fish $ANDROID_HOME/
         source $ANDROID_HOME/flutterrc
         
         # Install Flutter and Android SDK
