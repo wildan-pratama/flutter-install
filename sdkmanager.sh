@@ -12,6 +12,9 @@ sdkmanager-install () {
     FILENAME="commandlinetools-linux-9477386_latest.zip"
     URL="https://dl.google.com/android/repository/"$FILENAME""
     EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
+    if [ -d cmdline-tools ]; then
+		rm -rf cmdline-tools
+    fi
     processfile
     if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
         mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
@@ -38,20 +41,25 @@ calculate_checksum() {
 }
 
 redownload () {
-    echo "Downloaded file checksum mismatch. Redownload file?."
-    echo 
-    echo "1. Yes."
-    echo "2. No."
+	echo
+    echo "Downloaded file checksum mismatch. Redownload file?." 
     echo
 
     # Read Input
-    read -p "Redownload? [1-2]: " redown
-
-    if [ "$redown" == '1' ]; then
-        processfile
-    else
-        exit
-    fi
+    read -p "Redownload? [Yes/yes/y/No/no/n]: " redown
+	
+	case $redown in
+		Yes | yes | y)
+			processfile
+			;;
+		
+		*)
+			echo
+			echo "Please start again from begining"
+			echo
+			exit
+			;;
+	esac
 }
 
 processfile () {
@@ -94,31 +102,31 @@ else
 fi
 }
 
-echo "Do you want Install with Android Studio?"
-	echo 
-	echo "1. Yes."
-	echo "2. No."
-	echo
-
-	# Read Input
-	read -p "Yes/No? [1-2]: " astudio
-
-if [[ "$astudio" == '1' ]]; then
+case $1 in
+  Yes | yes | y)
 	# Define the URL, file name, and expected checksum
 	FILE="android-studio"
     FILENAME="android-studio-2022.3.1.19-linux.tar.gz"
     URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.19/"$FILENAME""
     EXPECTED_CHECKSUM="250625dcab183e0c68ebf12ef8a522af7369527d76f1efc704f93c05b02ffa9e"
+    
+    if [ -d android-studio ]; then
+		rm -rf android-studio
+    fi
+    
     processfile
+    
     cp android-studio.desktop /usr/share/applications/
     if [ -d /opt/android-studio ]; then
         sudo rm -rf /opt/android-studio
     fi
+    
     sudo mv android-studio /opt/
     flutter config --android-studio-dir=/opt/android-studio
     sdkmanager-install
-elif [[ "$astudio" == '2' ]]; then
+    ;;
+    
+  No | no | n)
 	sdkmanager-install
-else
-    echo "Input error"
-fi
+    ;;
+esac
