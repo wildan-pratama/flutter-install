@@ -6,25 +6,6 @@ FILENAME="yourfile.ext"
 EXPECTED_CHECKSUM="expected_checksum_here"
 ANDROID_SDK_ROOT="$HOME/Android/sdk"
 
-sdkmanager-install () {
-    # Define the URL, file name, and expected checksum
-    FILE="sdkmanager"
-    FILENAME="commandlinetools-linux-9477386_latest.zip"
-    URL="https://dl.google.com/android/repository/"$FILENAME""
-    EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
-    if [ -d cmdline-tools ]; then
-		rm -rf cmdline-tools
-    fi
-    processfile
-    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
-        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
-    else
-        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
-    fi
-    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
-    rm -rf cmdline-tools
-}
-
 # Extract FILE
 extract_file() {
 	if [ "$FILE" == "sdkmanager" ]; then
@@ -123,10 +104,53 @@ case $1 in
     
     sudo mv android-studio /opt/
     flutter config --android-studio-dir=/opt/android-studio
-    sdkmanager-install
     ;;
+esac
+
+case $1 in
+  Yes | yes | y | 2)
+	# Define the URL, file name, and expected checksum
+	FILE="sdkmanager"
+    FILENAME="commandlinetools-linux-10406996_latest.zip"
+    URL="https://dl.google.com/android/repository/"$FILENAME""
+    EXPECTED_CHECKSUM="8919e8752979db73d8321e9babe2caedcc393750817c1a5f56c128ec442fb540"
+
+    if [ -d cmdline-tools ]; then
+		rm -rf cmdline-tools
+    fi
+
+    processfile
     
-  No | no | n)
-	sdkmanager-install
+    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
+        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
+    else
+        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
+    fi
+    
+    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
+    rm -rf cmdline-tools
+    ;;
+
+  1)
+    # Define the URL, file name, and expected checksum
+    FILE="sdkmanager"
+    FILENAME="commandlinetools-linux-9477386_latest.zip"
+    URL="https://dl.google.com/android/repository/"$FILENAME""
+    EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
+
+    if [ -d cmdline-tools ]; then
+		rm -rf cmdline-tools
+    fi
+
+    processfile
+    
+    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
+        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
+    else
+        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
+    fi
+    
+    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
+    rm -rf cmdline-tools
     ;;
 esac

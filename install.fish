@@ -156,7 +156,14 @@ switch $confirm
         git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
         
         ## installing sdk
-        ./sdkmanager.sh $astudio
+		switch $astudio
+			case "Yes" "yes" "y"
+				./sdkmanager.sh $astudio
+				
+			case "No" "no" "n"
+				./sdkmanager.sh $javaver
+		
+		end
         
         sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
         sdkmanager --licenses

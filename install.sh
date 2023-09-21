@@ -84,6 +84,7 @@ case $current_shell in
 				echo "Error, Please repeat from the beginning and choose install with or without android."
 				echo
 				exit
+				;;
 		esac
         
         # Intalling PKGS
@@ -175,7 +176,16 @@ case $current_shell in
         git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
         
         ## installing sdk
-        ./sdkmanager.sh $astudio
+		case $astudio in
+			Yes | yes | y)
+				./sdkmanager.sh $astudio
+				;;
+				
+			No | no | n)
+				./sdkmanager.sh $javaver
+				;;
+		esac
+        
         
         sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
         sdkmanager --licenses
