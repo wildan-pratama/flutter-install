@@ -15,6 +15,33 @@ case $current_shell in
     # Proccesing input
     case $confirm in
 		Yes | yes | y)
+		# Select channel
+		channel="stable"
+        echo
+        echo "Please slect flutter channel you want install:"
+        echo "1. Stabel (default, updated quarterly, for new users and for production app releases)."
+        echo "2. Beta (updated monthly, recommended for experienced users)."
+	    echo "3. Main (latest development branch, follows master channel)."
+		echo "4. Master (latest development branch, for contributors)."
+        echo
+
+		# Read Input
+		read -p "Channel? [1-4]: " channel
+    
+        if [ "$channel" == '1' ]; then
+            channel="stable"
+        elif [ "$channel" == '2' ]; then
+            channel="beta"
+        elif [ "$channel" == '3' ]; then
+            channel="main"
+		elif [ "$channel" == '4' ]; then
+            channel="master"
+        else
+		    echo
+		    echo "Please slect channel"
+		    exit
+        fi
+
         # Select OS
         echo
         echo "Please chose your os:"
@@ -173,7 +200,7 @@ case $current_shell in
         
         # Install Flutter and Android SDK
         ## clone Flutter
-        git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
+        git clone https://github.com/flutter/flutter.git -b $channel $ANDROID_HOME/flutter
         
         ## installing sdk
 		case $astudio in

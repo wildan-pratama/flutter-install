@@ -12,6 +12,33 @@ read confirm
 # Proccesing input
 switch $confirm
     case "Yes" "yes" "y"
+
+		# Select channel
+		set -x channel "stable"
+        echo
+        echo "Please slect flutter channel you want install:"
+        echo "1. Stable (default, updated quarterly, for new users and for production app releases)."
+        echo "2. Beta (updated monthly, recommended for experienced users)."
+	    echo "3. Main (latest development branch, follows master channel)."
+		echo "4. Master (latest development branch, for contributors)."
+        echo
+
+		echo "Channel? [1-4]: "
+		read channel
+
+		if [ "$channel" = '1' ]
+			set -x channel "stable"
+		else if [ "$channel" = '2' ]
+			set -x channel "beta"
+		else if [ "$channel" = '3' ]
+			set -x channel "main"
+		else if [ "$channel" = '4' ]
+			set -x channel "master"
+		else
+			echo
+		    echo "Please slect channel"
+		    exit
+		end
    
 		# Select OS
 		echo
@@ -153,7 +180,7 @@ switch $confirm
 	
 		# Install Flutter and Android SDK
         ## clone Flutter
-        git clone https://github.com/flutter/flutter.git -b beta $ANDROID_HOME/flutter
+        git clone https://github.com/flutter/flutter.git -b $channel $ANDROID_HOME/flutter
         
         ## installing sdk
 		switch $astudio
