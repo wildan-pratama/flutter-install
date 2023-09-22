@@ -39,6 +39,10 @@ switch $confirm
 		    echo "Please slect channel"
 		    exit
 		end
+
+		echo
+		echo "installing Fluter $channel"
+		echo
    
 		# Select OS
 		echo

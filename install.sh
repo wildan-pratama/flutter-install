@@ -42,6 +42,10 @@ case $current_shell in
 		    exit
         fi
 
+		echo
+		echo "installing Fluter $channel"
+		echo
+
         # Select OS
         echo
         echo "Please chose your os:"
