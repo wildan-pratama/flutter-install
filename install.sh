@@ -38,7 +38,7 @@ case $current_shell in
             channel="master"
         else
 		    echo
-		    echo "Please slect channel"
+		    echo "Please select channel"
 		    exit
         fi
 
@@ -65,7 +65,7 @@ case $current_shell in
             os="aptub"
         else
 		    echo
-		    echo "Please slect your os (1, 2 or 3)"
+		    echo "Please select your os (1, 2 or 3)"
 		    exit
         fi
         
