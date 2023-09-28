@@ -11,7 +11,9 @@ set -x PATH $ANDROID_SDK_ROOT/platform-tools $PATH
 set -x PATH $ANDROID_HOME/flutter/bin $PATH
 
 ## Androidstudio binary exporting
-set -x PATH /opt/android-studio/bin $PATH
+if test -d /opt/android-studio/bin
+    set -x PATH /opt/android-studio/bin $PATH
+end
 
 ## Fix problems with Java apps
 #set -x wmname "LG3D"

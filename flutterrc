@@ -68,6 +68,11 @@ export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools"
 ## Flutter binary exporting
 export PATH="$PATH:$ANDROID_HOME/flutter/bin"
 
+## Androidstudio binary exporting
+if [ -d /opt/android-studio ]; then
+  export PATH="$PATH:/opt/android-studio"
+fi
+
 ## Fix problems with Java apps
 #export wmname="LG3D"
 export _JAVA_AWT_WM_NONREPARENTING=1
