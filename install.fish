@@ -118,7 +118,7 @@ switch $confirm
 		# Install PKGS
 		if test "$os" = "apt" -o "$os" = "aptub"
 			sudo apt-get update
-			sudo apt-get install git clang build-essential cmake ninja-build wget apt-transport-https libgtk-3-dev android-tools-adb which curl -y
+			sudo apt-get install git clang build-essential cmake ninja-build wget apt-transport-https libgtk-3-dev android-tools-adb which curl unzip -y
 			
 			switch $astudio
 				case "Yes" "yes" "y"
@@ -146,7 +146,7 @@ switch $confirm
 			end
 		
 		else if [ "$os" = 'pacman' ]
-			sudo pacman -Syy --noconfirm git base-devel clang cmake ninja gtk3 android-tools which curl
+			sudo pacman -Syy --noconfirm git base-devel clang cmake ninja gtk3 android-tools which curl unzip
 			
 			switch $astudio
 				case "Yes" "yes" "y"

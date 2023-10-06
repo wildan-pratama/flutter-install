@@ -121,7 +121,7 @@ case $current_shell in
         # Intalling PKGS
         if [[ "$os" == "apt" || "$os" == "aptub" ]]; then
 		    sudo apt-get update
-		    sudo apt-get install git clang build-essential cmake ninja-build wget apt-transport-https libgtk-3-dev android-tools-adb which curl -y
+		    sudo apt-get install git clang build-essential cmake ninja-build wget apt-transport-https libgtk-3-dev android-tools-adb which curl unzip -y
 		    case $astudio in
 				Yes | yes | y)
 					echo
@@ -150,7 +150,7 @@ case $current_shell in
 			esac
 
 	    elif [[ "$os" == 'pacman' ]]; then
-			sudo pacman -Syy --noconfirm git base-devel clang cmake ninja gtk3 android-tools which curl
+			sudo pacman -Syy --noconfirm git base-devel clang cmake ninja gtk3 android-tools which curl unzip
 			case $astudio in
 				Yes | yes | y)
 					echo
