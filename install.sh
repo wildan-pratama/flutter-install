@@ -90,9 +90,10 @@ case $current_shell in
 				echo
 				echo "1. Java 11 LTS"
 				echo "2. Java 17 LTS"
+				echo "3. Java 21 LTS"
 				echo
 				
-				read -p "[1/2]?: " javaver
+				read -p "[1-3]?: " javaver
 				
 				if [ "$javaver" == '1' ]; then
 					echo
@@ -102,9 +103,13 @@ case $current_shell in
 					echo
 					echo "selecting Java 17 LTS"
 					echo
+				elif [ "$javaver" == '3' ]; then
+					echo
+					echo "selecting Java 21 LTS"
+					echo
 				else
 					echo
-					echo "Error, Please select correct java version (1 or 2)."
+					echo "Error, Please select correct java version (1, 2 or 3)."
 					echo
 					exit
 				fi
@@ -142,9 +147,11 @@ case $current_shell in
 					sudo apt-get update
 					
 					if [ "$javaver" = '1' ]; then
-						sudo apt-get install temurin-11-jdk temurin-11-jre -y
+						sudo apt-get install temurin-11-jdk -y
 					elif [ "$javaver" = '2' ]; then
-						sudo apt-get install temurin-17-jdk temurin-17-jre -y
+						sudo apt-get install temurin-17-jdk -y
+					elif [ "$javaver" = '3' ]; then
+						sudo apt-get install temurin-21-jdk -y
 					fi
 					;;
 			esac
@@ -160,9 +167,11 @@ case $current_shell in
 				
 				No | no | n)
 					if [ "$javaver" = '1' ]; then
-						sudo pacman -Syy --noconfirm jdk11-openjdk jre11-openjdk 
+						sudo pacman -Syy --noconfirm jdk11-openjdk
 					elif [ "$javaver" = '2' ]; then
-						sudo pacman -Syy --noconfirm jdk17-openjdk jre17-openjdk 
+						sudo pacman -Syy --noconfirm jdk17-openjdk
+					elif [ "$javaver" = '3' ]; then
+						sudo pacman -Syy --noconfirm jdk21-openjdk 
 					fi
 					;;
 			esac
