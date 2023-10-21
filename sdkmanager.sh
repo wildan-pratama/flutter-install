@@ -87,9 +87,9 @@ case $1 in
   Yes | yes | y)
 	# Define the URL, file name, and expected checksum
     FILE="android-studio"
-    FILENAME="android-studio-2022.3.1.19-linux.tar.gz"
-    URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.19/"$FILENAME""
-    EXPECTED_CHECKSUM="250625dcab183e0c68ebf12ef8a522af7369527d76f1efc704f93c05b02ffa9e"
+    FILENAME="android-studio-2022.3.1.20-linux.tar.gz"
+    URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.20/"$FILENAME""
+    EXPECTED_CHECKSUM="224c4eb7a0c8e1c04f50eced1013495740c71abb898d5749d2c93172e7beadd8"
     
     if [ -d android-studio ]; then
 		rm -rf android-studio
@@ -108,7 +108,7 @@ case $1 in
 esac
 
 case $1 in
-  Yes | yes | y | 2)
+  Yes | yes | y | 2 | 3)
 	# Define the URL, file name, and expected checksum
     FILE="sdkmanager"
     FILENAME="commandlinetools-linux-10406996_latest.zip"
