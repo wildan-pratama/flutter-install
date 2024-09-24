@@ -193,7 +193,7 @@ switch $confirm
 	
 		# Install Flutter and Android SDK
         ## clone Flutter
-        git clone https://github.com/flutter/flutter.git -b $channel $ANDROID_HOME/flutter
+        git clone --depth 1 https://github.com/flutter/flutter.git -b $channel $ANDROID_HOME/flutter
         
         ## installing sdk
 		switch $astudio
