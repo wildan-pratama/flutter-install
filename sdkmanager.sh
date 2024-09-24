@@ -83,42 +83,6 @@ else
 fi
 }
 
-sdkminstall () {
-    case $1 in
-        Yes | yes | y | 2 | 3)
-        # Define the URL, file name, and expected checksum
-        FILE="sdkmanager"
-        FILENAME="commandlinetools-linux-11076708_latest.zip"
-        URL="https://dl.google.com/android/repository/"$FILENAME""
-        EXPECTED_CHECKSUM="2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258"
-        ;;
-
-        1)
-        # Define the URL, file name, and expected checksum
-        FILE="sdkmanager"
-        FILENAME="commandlinetools-linux-9477386_latest.zip"
-        URL="https://dl.google.com/android/repository/"$FILENAME""
-        EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
-        ;;
-    esac
-
-    if [ -d cmdline-tools ]; then
-		rm -rf cmdline-tools
-    fi
-
-    processfile
-    
-    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
-        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
-    else
-        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
-    fi
-    
-    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
-    rm -rf cmdline-tools
-}
-
-
 case $1 in
   Yes | yes | y)
 	# Define the URL, file name, and expected checksum
@@ -141,11 +105,53 @@ case $1 in
     
     sudo mv android-studio /opt/
     flutter config --android-studio-dir=/opt/android-studio
+    ;;
+esac
+
+case $1 in
+  Yes | yes | y | 2 | 3)
+	# Define the URL, file name, and expected checksum
+    FILE="sdkmanager"
+    FILENAME="commandlinetools-linux-11076708_latest.zip"
+    URL="https://dl.google.com/android/repository/"$FILENAME""
+    EXPECTED_CHECKSUM="2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258"
+
+    if [ -d cmdline-tools ]; then
+		rm -rf cmdline-tools
+    fi
+
+    processfile
     
-    sdkminstall
+    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
+        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
+    else
+        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
+    fi
+    
+    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
+    rm -rf cmdline-tools
     ;;
 
-    1 | 2 | 3)
-    sdkminstall
+  1)
+    # Define the URL, file name, and expected checksum
+    FILE="sdkmanager"
+    FILENAME="commandlinetools-linux-9477386_latest.zip"
+    URL="https://dl.google.com/android/repository/"$FILENAME""
+    EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
+
+    if [ -d cmdline-tools ]; then
+		rm -rf cmdline-tools
+    fi
+
+    processfile
+    
+    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
+        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
+    else
+        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
+    fi
+    
+    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
+    rm -rf cmdline-tools
     ;;
 esac
