@@ -6,12 +6,12 @@ echo "This script will install package required by Flutter and will download req
 echo
 
 # Read Input
-echo "Continue? [Yes/yes/y/No/no/n]: "
+echo "Continue? [Yes/yes/Y/y/No/no/N/n]: "
 read confirm
     
 # Proccesing input
 switch $confirm
-    case "Yes" "yes" "y"
+    case "Yes" "yes" "Y" "y"
 
 		# Select channel
 		set -x channel "stable"
@@ -211,7 +211,7 @@ switch $confirm
         flutter doctor --android-licenses
         flutter doctor -v
 	
-	case "No" "no" "n"
+	case "No" "no" "N" "n"
 		echo
 		echo "Cancel"
 		exit

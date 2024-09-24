@@ -10,11 +10,11 @@ case $current_shell in
     echo
     
     # Read Input
-    read -p "Continue? [Yes/yes/y/No/no/n]: " confirm
+    read -p "Continue? [Yes/yes/Y/y/No/no/N/n]: " confirm
     
     # Proccesing input
     case $confirm in
-		Yes | yes | y)
+		Yes | yes | Y | y)
 		# Select channel
 		channel="stable"
         echo
@@ -234,7 +234,7 @@ case $current_shell in
         flutter doctor -v
 		;;
 		
-		No | no | n)
+		No | no | N | n)
 		echo "Cancel"
 		exit
 		;;

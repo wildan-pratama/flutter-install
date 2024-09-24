@@ -83,13 +83,50 @@ else
 fi
 }
 
+sdkminstall () {
+    case $1 in
+        Yes | yes | y | 2 | 3)
+        # Define the URL, file name, and expected checksum
+        FILE="sdkmanager"
+        FILENAME="commandlinetools-linux-11076708_latest.zip"
+        URL="https://dl.google.com/android/repository/"$FILENAME""
+        EXPECTED_CHECKSUM="2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258"
+        ;;
+
+        1)
+        # Define the URL, file name, and expected checksum
+        FILE="sdkmanager"
+        FILENAME="commandlinetools-linux-9477386_latest.zip"
+        URL="https://dl.google.com/android/repository/"$FILENAME""
+        EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
+        ;;
+    esac
+
+    if [ -d cmdline-tools ]; then
+		rm -rf cmdline-tools
+    fi
+
+    processfile
+    
+    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
+        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
+    else
+        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
+    fi
+    
+    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
+    rm -rf cmdline-tools
+}
+
+
 case $1 in
   Yes | yes | y)
 	# Define the URL, file name, and expected checksum
     FILE="android-studio"
-    FILENAME="android-studio-2022.3.1.20-linux.tar.gz"
-    URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.20/"$FILENAME""
-    EXPECTED_CHECKSUM="224c4eb7a0c8e1c04f50eced1013495740c71abb898d5749d2c93172e7beadd8"
+    VER="2024.1.2.12"
+    FILENAME="android-studio-"$VER"-linux.tar.gz"
+    URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/"$VER"/"$FILENAME""
+    EXPECTED_CHECKSUM="745168820e989a9085ff842d47ce541407db09df7b8ab20770f6ea89e41a6e92"
     
     if [ -d android-studio ]; then
 		rm -rf android-studio
@@ -104,53 +141,11 @@ case $1 in
     
     sudo mv android-studio /opt/
     flutter config --android-studio-dir=/opt/android-studio
-    ;;
-esac
-
-case $1 in
-  Yes | yes | y | 2 | 3)
-	# Define the URL, file name, and expected checksum
-    FILE="sdkmanager"
-    FILENAME="commandlinetools-linux-10406996_latest.zip"
-    URL="https://dl.google.com/android/repository/"$FILENAME""
-    EXPECTED_CHECKSUM="8919e8752979db73d8321e9babe2caedcc393750817c1a5f56c128ec442fb540"
-
-    if [ -d cmdline-tools ]; then
-		rm -rf cmdline-tools
-    fi
-
-    processfile
     
-    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
-        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
-    else
-        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
-    fi
-    
-    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
-    rm -rf cmdline-tools
+    sdkminstall
     ;;
 
-  1)
-    # Define the URL, file name, and expected checksum
-    FILE="sdkmanager"
-    FILENAME="commandlinetools-linux-9477386_latest.zip"
-    URL="https://dl.google.com/android/repository/"$FILENAME""
-    EXPECTED_CHECKSUM="bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0"
-
-    if [ -d cmdline-tools ]; then
-		rm -rf cmdline-tools
-    fi
-
-    processfile
-    
-    if ! [ -d "$ANDROID_SDK_ROOT"/cmdline-tools/latest ]; then
-        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
-    else
-        rm -rf $ANDROID_SDK_ROOT/cmdline-tools/latest/*
-    fi
-    
-    mv cmdline-tools/* $ANDROID_SDK_ROOT/cmdline-tools/latest/
-    rm -rf cmdline-tools
+    1 | 2 | 3)
+    sdkminstall
     ;;
 esac
