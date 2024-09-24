@@ -70,7 +70,7 @@ export PATH="$PATH:$ANDROID_HOME/flutter/bin"
 
 ## Androidstudio binary exporting
 if [ -d /opt/android-studio ]; then
-  export PATH="$PATH:/opt/android-studio"
+  export PATH="$PATH:/opt/android-studio/bin"
 fi
 
 ## Fix problems with Java apps
