@@ -205,7 +205,7 @@ switch $confirm
 		
 		end
         
-        sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33" "emulator"
+        sdkmanager "platform-tools" "build-tools;33.0.0" "platforms;android-33"
         sdkmanager --licenses
         flutter precache
         flutter doctor --android-licenses

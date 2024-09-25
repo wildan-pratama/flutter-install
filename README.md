@@ -60,3 +60,24 @@ set -x CHROME_EXECUTABLE "/path/to/your/browser"
 ## remove comment (#) and edit this line on ~Android/flutterrc
 export CHROME_EXECUTABLE="/path/to/your/browser"
 ```
+
+If you want install AVD witout Android Studio you can install emulator
+
+
+```
+# Install emulator
+sdkmanager --install emulator
+
+# For more instruction about emulator you can tipe --help
+emulator --help
+
+# Example for installing a emulator
+## Search system image you want install
+sdkmanager --list
+## Download system image, exp:
+sdkmanager --install "system-images;android-33;google_apis_playstore;x86_64"
+## Create Emulator
+avdmanager create avd -n Emulatorname -k "system-images;android-33;google_apis_playstore;x86_64" --device "pixel"
+## Exp to start Emulator with gpu and 2048MB memory
+emulator -avd Emulatorname -gpu host -memory 2048
+```
