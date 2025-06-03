@@ -87,10 +87,10 @@ case $1 in
   Yes | yes | y)
 	# Define the URL, file name, and expected checksum
     FILE="android-studio"
-    VER="2024.1.2.12"
+    VER="2024.3.2.15"
     FILENAME="android-studio-"$VER"-linux.tar.gz"
-    URL="https://r1---sn-npoe7ner.gvt1.com/edgedl/android/studio/ide-zips/"$VER"/"$FILENAME""
-    EXPECTED_CHECKSUM="745168820e989a9085ff842d47ce541407db09df7b8ab20770f6ea89e41a6e92"
+    URL="https://r3---sn-npoe7ndl.gvt1.com/edgedl/android/studio/ide-zips/"$VER"/"$FILENAME""
+    EXPECTED_CHECKSUM="2fcb3c975fd0e002441af7734cb2eef6c459964372443310bcaf26a195ce7881"
     
     if [ -d android-studio ]; then
 		rm -rf android-studio
@@ -112,9 +112,9 @@ case $1 in
   Yes | yes | y | 2 | 3)
 	# Define the URL, file name, and expected checksum
     FILE="sdkmanager"
-    FILENAME="commandlinetools-linux-11076708_latest.zip"
+    FILENAME="commandlinetools-linux-13114758_latest.zip"
     URL="https://dl.google.com/android/repository/"$FILENAME""
-    EXPECTED_CHECKSUM="2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258"
+    EXPECTED_CHECKSUM="7ec965280a073311c339e571cd5de778b9975026cfcbe79f2b1cdcb1e15317ee"
 
     if [ -d cmdline-tools ]; then
 		rm -rf cmdline-tools
